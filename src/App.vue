@@ -10,7 +10,9 @@
     <DataTitle :text="title" :dataDate="dataDate"/>
 
     <DataBoxes :stats="stats"/>
-  
+
+    <CountrySelect :countries="countries" @get-country="getCountryData" />
+
   </main>
   <main v-else class="flex flex-col align-center justify-center text-center">
     <div class="text-gray-500 text-3xl mt-10 mb-6">Fetching data</div>
@@ -23,13 +25,15 @@
 import Header from "./components/Header.vue";
 import DataTitle from "./components/DataTitle.vue"
 import DataBoxes from "./components/DataBoxes.vue"
+import CountrySelect from "./components/CountrySelect.vue"
 
 export default {
   name: "App",
   components: {
     Header,
     DataTitle,
-    DataBoxes
+    DataBoxes,
+    CountrySelect
   },
   data() {
     return {
@@ -47,6 +51,10 @@ export default {
       const data = res.json();
       return data;
     },
+    getCountryData(country) {
+      this.title = country.Country
+      this.stats = country
+    }
   },
   async created() {
     const data = await this.fetchCoviData();
