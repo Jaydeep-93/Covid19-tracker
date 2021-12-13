@@ -4,7 +4,7 @@
 
   <!-- Body -->
   <main class="" v-if="!loading">
-    Show data
+    <DataTitle :text="title" :dataDate="dataDate"/>
   </main>
   <main v-else class="flex flex-col align-center justify-center text-center">
     <div class="text-gray-500 text-3xl mt-10 mb-6">Fetching data</div>
@@ -14,11 +14,13 @@
 
 <script>
 import Header from "./components/Header.vue";
+import DataTitle from "./components/DataTitle.vue"
 
 export default {
   name: "App",
   components: {
     Header,
+    DataTitle
   },
   data() {
     return {
