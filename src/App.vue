@@ -13,6 +13,9 @@
 
     <CountrySelect :countries="countries" @get-country="getCountryData" />
 
+    
+    <button v-if="stats.Country" @click="clearCountries" class="bg-green-700 text-white p-3 rounded mt-10 focus:outline-none hover:bg-green-600 ">Clear Countries</button>
+
   </main>
   <main v-else class="flex flex-col align-center justify-center text-center">
     <div class="text-gray-500 text-3xl mt-10 mb-6">Fetching data</div>
@@ -54,6 +57,13 @@ export default {
     getCountryData(country) {
       this.title = country.Country
       this.stats = country
+    },
+    async clearCountries() {
+      this.loading = true 
+      const data = await this.fetchCoviData();
+      this.stats = data.Global
+      this.title = 'Global'
+      this.loading = false
     }
   },
   async created() {
